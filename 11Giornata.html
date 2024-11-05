@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FANTAGAZZETABILE</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;700&display=swap");
+
+      :root {
+        --neon-green: #50c878;
+        --royal-purple: #4b0082;
+        --autumn-orange: #d35400;
+        --deep-brown: #5d4037;
+        --golden: #ffd700;
+        --cream: #fff5e1;
+        --background: #1a1a2e;
+      }
+
+      /* [Previous styles remain the same until match-content] */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--background);
+        color: var(--cream);
+        font-family: "Oswald", sans-serif;
+        line-height: 1.7;
+      }
+
+      .newspaper {
+        max-width: 1200px;
+        margin: 2rem auto;
+        background: linear-gradient(135deg, #1a1a2e, #2a2a45);
+        padding: 1.5rem;
+        box-shadow: 0 0 40px rgba(75, 0, 130, 0.25);
+      }
+
+      .header-container {
+        background: var(--royal-purple);
+        padding: 1.8rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 0 25px rgba(80, 200, 120, 0.25);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .newspaper-title {
+        font-family: "Anton", sans-serif;
+        font-size: 7rem;
+        color: var(--cream);
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: -2px;
+        line-height: 1;
+        text-shadow: 3px 3px 0 var(--neon-green), 6px 6px 0 rgba(0, 0, 0, 0.25);
+        transform: skew(-4deg);
+      }
+
+      .edition-bar {
+        background: rgba(0, 0, 0, 0.25);
+        color: var(--cream);
+        padding: 0.8rem;
+        margin-top: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.1rem;
+        transform: skew(-4deg);
+      }
+
+      .matches-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.8rem;
+        padding: 0.8rem;
+      }
+
+      .match-card {
+        background: var(--cream);
+        padding: 1.8rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .match-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .match-title {
+        font-family: "Anton", sans-serif;
+        font-size: 2.5rem;
+        color: var(--royal-purple);
+        text-align: center;
+        margin-top: 1.5rem;
+        line-height: 1.2;
+        text-shadow: 1.5px 1.5px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .match-subtitle {
+        text-align: center;
+        font-size: 1.6rem;
+        color: var(--deep-brown);
+        margin-bottom: 1.2rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 3px solid var(--autumn-orange);
+      }
+
+      .match-score {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: var(--royal-purple);
+        padding: 0.4rem 0.8rem;
+        background: rgba(75, 0, 130, 0.1);
+        border-radius: 6px;
+      }
+
+      .match-content {
+        color: var(--background);
+        font-size: 1.1rem;
+        margin-bottom: 1.2rem;
+        line-height: 1.7;
+      }
+
+      .standings-container {
+        margin-top: 2.5rem;
+        padding: 1.8rem;
+        background: var(--golden);
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25),
+          inset 0 0 15px var(--neon-green), inset 0 0 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .standings-title {
+        font-family: "Anton", sans-serif;
+        font-size: 2.8rem;
+        text-align: center;
+        color: var(--background);
+        margin-bottom: 1.8rem;
+        text-shadow: 2px 2px 0 var(--neon-green), 4px 4px 0 rgba(0, 0, 0, 0.25);
+      }
+
+      .standings-grid {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 0.8rem;
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 1.2rem;
+      }
+
+      .standings-row {
+        display: contents;
+      }
+
+      .standings-row > div {
+        padding: 0.8rem;
+        color: var(--background);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+      }
+
+      .position {
+        font-weight: bold;
+        color: var(--royal-purple);
+        text-shadow: 1px 1px 0 var(--neon-green);
+      }
+
+      @media (max-width: 1024px) {
+        .newspaper-title {
+          font-size: 5rem;
+        }
+        .matches-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .newspaper-title {
+          font-size: 3.5rem;
+        }
+        .match-title {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="newspaper">
+      <div class="header-container">
+        <h1 class="newspaper-title">FANTAGAZZETABILE</h1>
+        <div class="edition-bar">
+          <span>EDIZIONE STRAORDINARIA</span>
+          <span>5 NOVEMBRE 2024</span>
+          <span>Anno XII - N° 01</span>
+        </div>
+      </div>
+
+      <section class="matches-grid">
+        <article class="match-card">
+          <h3 class="match-subtitle">RealDoBaglio vs Tani</h3>
+          <div class="match-score">1-2</div>
+
+          <div class="match-content">
+            <p>
+              Spettacolo puro al campo del RealDoBaglio, dove i Terroni, forti
+              dell'ultima vittoria, si presentano con la formazione tipo. Ma il
+              calcio sa essere beffardo: mentre la squadra titolare fatica a
+              trovare la via del gol, è la panchina a mettersi in mostra con una
+              prestazione che fa drizzare le antenne al mister. Dal canto loro,
+              i Tani gestiscono la gara con la proverbiale calma zen, aspettando
+              il momento giusto per sferrare il colpo del ko nei minuti finali.
+              Una vittoria che sa di strategia e pazienza, marchio di fabbrica
+              di una squadra che sa come si vince.
+            </p>
+            <h2 class="match-title">GOD SAVE THE MIK</h2>
+          </div>
+        </article>
+
+        <article class="match-card">
+          <h3 class="match-subtitle">KoulibalyFunincula vs Dunder Mifflin</h3>
+          <div class="match-score">2-2</div>
+
+          <div class="match-content">
+            <p>
+              Una sfida dai due volti quella tra KoulibalyFunincula e Dunder
+              Mifflin. Un match che ha visto contrapporsi due filosofie di gioco
+              diverse ma ugualmente efficaci. La formazione africana ha mostrato
+              grinta e determinazione, conquistando un punto che vale oro in
+              classifica. Per la squadra americana, invece, il pareggio sa di
+              occasione sprecata, ma dimostra che in questo campionato nessun
+              risultato può essere dato per scontato. Una partita che rispecchia
+              perfettamente l'equilibrio di questo torneo.
+            </p>
+            <h2 class="match-title">UNO A UNO E PALLA AL CENTRO</h2>
+          </div>
+        </article>
+
+        <article class="match-card">
+          <h3 class="match-subtitle">Noi United vs Isola City</h3>
+          <div class="match-score">3-2</div>
+
+          <div class="match-content">
+            <p>
+              Continua l'ascesa inarrestabile del Noi United, che conferma il
+              suo stato di grazia conquistando la vetta della classifica. Una
+              vittoria che sa di rivincita contro i campioni in carica
+              dell'Isola City, ora in evidente difficoltà. I marinai sembrano
+              aver perso la bussola in questo mare in tempesta, navigando a
+              vista da diverse settimane. Serve una svolta immediata per non
+              vedere affondare definitivamente le ambizioni di inizio stagione.
+              Un cambio di rotta è necessario, e deve arrivare prima che sia
+              troppo tardi.
+            </p>
+            <h2 class="match-title">CAPITAN JACK SPARROW PENSACI TU</h2>
+          </div>
+        </article>
+
+        <article class="match-card">
+          <h3 class="match-subtitle">Fc Tirrimutati vs Fc Minchia</h3>
+          <div class="match-score">0-2</div>
+
+          <div class="match-content">
+            <p>
+              La crisi degli sfollati continua senza sosta. La squadra sembra
+              aver perso quella compattezza che la caratterizzava, con troppi
+              elementi ancora alla ricerca della giusta sistemazione. Dall'altra
+              parte, l'Fc Minchia prosegue la sua marcia trionfale, inanellando
+              la seconda vittoria consecutiva con la sicurezza di chi sa quello
+              che vuole. Una squadra che non fa mistero delle proprie ambizioni:
+              riconquistare il titolo e zittire chi aveva bollato il successo
+              della scorsa stagione come un caso fortuito. La strada è quella
+              giusta, e i risultati iniziano a dare ragione a questa mentalità
+              vincente.
+            </p>
+            <h2 class="match-title">SIAMO CHI SIAMO</h2>
+          </div>
+        </article>
+      </section>
+
+      <section class="standings-container">
+        <h2 class="standings-title">LA CLASSIFICA</h2>
+        <div class="standings-grid">
+          <div class="standings-row">
+            <div class="position">1</div>
+            <div class="team">Dunder Mifflin</div>
+            <div class="points">20 pts</div>
+            <div class="position">2</div>
+            <div class="team">Noi United</div>
+            <div class="points">20 pts</div>
+            <div class="position">3</div>
+            <div class="team">Fc Minchia</div>
+            <div class="points">19 pts</div>
+            <div class="position">4</div>
+            <div class="team">Tani</div>
+            <div class="points">16 pts</div>
+            <div class="position">5</div>
+            <div class="team">RealDobaglio</div>
+            <div class="points">15 pts</div>
+            <div class="position">6</div>
+            <div class="team">Isola City FC</div>
+            <div class="points">14 pts</div>
+            <div class="position">7</div>
+            <div class="team">Fc Tirrimutati</div>
+            <div class="points">13 pts</div>
+            <div class="position">8</div>
+            <div class="team">Koulibaly Funicula</div>
+            <div class="points">6 pts</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
